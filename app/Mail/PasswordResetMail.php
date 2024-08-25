@@ -17,15 +17,11 @@ class PasswordResetMail extends Mailable
      * Create a new message instance.
      */
 
-     //PasswordResetMail.blade.php
-
     public $token;
-    public $email;
-
-    public function __construct($token, $email)
+   
+    public function __construct($token)
     {
         $this->token = $token;
-        $this->email = $email;
     }
 
     /**

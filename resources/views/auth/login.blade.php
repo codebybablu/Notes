@@ -24,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <a href="{{ url('/') }}">Forget Password?</a>
+                <a href="{{ url('forget-password') }}">Forget Password?</a>
                 {{-- forget-password  --}}
             </div>
 

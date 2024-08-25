@@ -40,10 +40,20 @@
             <div class="col-md-6">
                 <a href="{{ route('notes.create') }}" class="btn btn-primary">Create Notes</a>
             </div>
+
+            {{-- Serch Bar
+             <div class="col-md-4">
+                <form class="form-inline" action="" method="GET">
+                    <input type="search" class="form-control" name="search" placeholder="Search...">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div> --}}
             <div class="col-md-6 text-right">
                 Welcome, {{ Auth::user()->name }} 
                 <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
             </div>
+
+            
         </div>
 
         <table class="table table-striped table-bordered">
@@ -63,13 +73,16 @@
                     <td>{{ $note->content }}</td>
                     <td>
                         <a href="{{ url('notes/'.$note->id.'/edit') }}" class="btn btn-sm btn-primary">Edit</a> 
-                        <a href="{{ url('notes/'.$note->id.'/delete') }}" class="btn btn-sm btn-danger">Delete</a>
+                        <a onclick="return confirm('Do you want to delete or not?')" href="{{ url('notes/'.$note->id.'/delete') }}" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>  
                 @endforeach
             </tbody>
         </table>
     </div>
+
+    
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

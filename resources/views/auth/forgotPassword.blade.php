@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    {{-- forgotPassword.blade.php --}}
+
     <h3> Put Your Email ID  </h3>
 
     @if($errors->any())
@@ -25,7 +25,7 @@
     <p style="color:green;" >{{ Session::get('success') }}</p>
     @endif
 
-    <form action="{{ route('reset.password') }}" method="POST">
+    <form action="{{ route('forget.password') }}" method="POST">
         @csrf
         <label for="email">Email:</label>
         <input type="email" name="email" required><br><br>
