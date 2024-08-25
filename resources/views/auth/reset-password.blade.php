@@ -4,6 +4,7 @@
     <title>Reset Password</title>
 </head>
 <body>
+    <h1 class="mb-3">Reset Password</h1>
     <form action="{{ route('reset.password', $token) }}" method="POST">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
@@ -11,11 +12,11 @@
         <div>
             <label>Password</label>
             <input type="password" name="password" required>
-        </div>
+        </div><br><br>
         <div>
             <label>Confirm Password</label>
             <input type="password" name="password_confirmation" required>
-        </div>
+        </div><br><br>
         <button type="submit">Reset Password</button>
     </form>
     @if (session('error'))
