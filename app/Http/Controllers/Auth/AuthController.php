@@ -55,13 +55,24 @@ class AuthController extends Controller
     }
     }
 
-    public function resetpasswordLoad($token)
+    public function resetpasswordLoad(Request $request)
     {
-      $user = PasswordReset::where('token', $token)->first();
-    if (!$user) {
-        return redirect()->back()->with('error', 'Invalid token');
+      $token = $request->token;
+    $user = PasswordReset::where('token', $token)->first();
+
+    if ($user) {
+        $email = $user->email;
+        $user = User::where('email', $email)->first();
+
+        return view('auth.reset-password', compact('user', 'token'));
+    } else {
+        return view('auth.404');
     }
-    return view('auth.reset-password', ['token' => $token, 'email' => $user->email]);
+
+      // if (!$user) {
+    //     return redirect()->back()->with('error', 'Invalid token');
+    // }
+   // return view('auth.reset-password', ['token' => $token]);
         // $user = PasswordReset::where('token', $token)->first();
         // if (!$user) {
         //     return redirect()->back()->with('error', 'Invalid token');
@@ -69,20 +80,25 @@ class AuthController extends Controller
         // return view('auth.reset-password', ['token' => $token]);
     }
 
-    public function resetpassword(Request $request, $token)
+    public function resetpassword(Request $request)
     {
-        $request->validate([
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+      $request->validate([
+        'password' => 'required|confirmed',
+        'password_confirmation' => 'required',
+    ]);
 
-        $user = User::where('password_reset_token', $token)->first();
-        if (!$user) {
-            return redirect()->back()->with('error', 'Invalid token');
-        }
+    $passwordReset = PasswordReset::where('token', $request->token)->first();
+    if (!$passwordReset) {
+        return redirect()->back()->with('error', 'Invalid token');
+    }
 
-        $user->password = Hash::make($request->input('password'));
-        $user->password_reset_token = null;
-        $user->save();
-        return redirect()->back()->with('success', 'Password reset successfully');
+    $user = User::where('email', $passwordReset->email)->first();
+    $user->password = bcrypt($request->password);
+    $user->save();
+
+    // Delete the password reset token
+    $passwordReset->delete();
+
+    return redirect()->route('login')->with('success', 'Password has been reset successfully');
     }
 }
