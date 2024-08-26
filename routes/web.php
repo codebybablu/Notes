@@ -16,6 +16,7 @@ use App\Http\Controllers\NoteController;
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+Route::get('verify-email/{token}', [RegisterController::class, 'verifyEmail'])->name('verify-email');
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('postlogin');
