@@ -61,6 +61,7 @@ class RegisterController extends Controller
 
     $user->email_verified_at = now();
     $user->verification_token = null;
+    $user->is_active = 1; // Activate the user
     $user->save();
 
     Auth::login($user);
