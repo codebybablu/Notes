@@ -5,6 +5,13 @@
 </head>
 <body>
     <h1 class="mb-3">Reset Password</h1>
+    @if (session('error'))
+        <p>{{ session('error') }}</p>
+    @endif
+    @if (session('sucess'))
+        <p>{{ session('sucess') }}</p>
+    @endif
+
     <form action="{{ route('reset.password', $token) }}" method="POST">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
@@ -19,11 +26,6 @@
         </div><br><br>
         <button type="submit">Reset Password</button>
     </form>
-    @if (session('error'))
-        <p>{{ session('error') }}</p>
-    @endif
-    @if (session('sucess'))
-        <p>{{ session('sucess') }}</p>
-    @endif
+    
 </body>
 </html>

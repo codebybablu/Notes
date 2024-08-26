@@ -30,7 +30,6 @@ class AuthController extends Controller
 
     if ($user) {
         $token = Str::random(40);
-        
         // Check if a password reset record already exists for this email
         $passwordReset = PasswordReset::where('email', $user->email)->first();
         
@@ -38,6 +37,7 @@ class AuthController extends Controller
             // Update the existing record
             $passwordReset->token = $token;
             $passwordReset->created_at = Carbon::now()->format('y-m-d H:i:s');
+            // $passwordReset->expires_at = Carbon::now()->addMinutes(1)->format('y-m-d H:i:s');
             $passwordReset->save();
         } else {
             // Create a new record
@@ -45,6 +45,7 @@ class AuthController extends Controller
             $passwordReset->email = $user->email;
             $passwordReset->token = $token;
             $passwordReset->created_at = Carbon::now()->format('y-m-d H:i:s');
+            // $passwordReset->expires_at = Carbon::now()->addMinutes(1)->format('y-m-d H:i:s');
             $passwordReset->save();
         }
         
@@ -69,6 +70,20 @@ class AuthController extends Controller
         return view('auth.404');
     }
 
+    // -- one minutes validation token --
+    // $token = $request->token;
+    // $passwordReset = PasswordReset::where('token', $token)->first();
+
+    // if (!$passwordReset) {
+    //     return redirect()->back()->with('error', 'Invalid token');
+    // }
+
+    // if ($passwordReset->expires_at < Carbon::now()) {
+    //     return redirect()->back()->with('error', 'Token has expired. Please request a new password reset link.');
+
+    //
+
+    // -- old
       // if (!$user) {
     //     return redirect()->back()->with('error', 'Invalid token');
     // }

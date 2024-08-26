@@ -35,7 +35,11 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-     
+    
+        // Send email with password
+        Mail::to($user->email)
+            ->send(new MailSendPasswordEmail ($request->password));
+    
         return redirect()->route('login');
     }
 }
