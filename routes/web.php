@@ -18,7 +18,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('verify-email/{token}', [RegisterController::class, 'verifyEmail'])->name('verify-email');
 
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('postlogin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -26,6 +26,9 @@ Route::get('forget-password', [AuthController::class, 'forgetpasswordLoad']);
 Route::post('forget-password', [AuthController::class, 'forgetpassword'])->name('forget.password');
 Route::get('reset-password/{token}', [AuthController::class, 'resetpasswordLoad']);
 Route::post('reset-password/{token}', [AuthController::class, 'resetpassword'])->name('reset.password');
+
+Route::post('change-password', [AuthController::class, 'changePassword'])->name('change-password');
+Route::get('change-password', [AuthController::class, 'showChangePasswordForm'])->name('change-password.form');
 
 // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 // Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

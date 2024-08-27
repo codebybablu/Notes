@@ -53,6 +53,9 @@
                 <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
             </div>
 
+            {{-- <div class="col-md-4 text-right">
+                <a href="{{ route('change-password.form') }}" class="btn btn-primary">Change Password</a>
+            </div> --}}
             
         </div>
 

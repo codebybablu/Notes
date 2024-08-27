@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\PasswordReset;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -70,6 +70,7 @@ class AuthController extends Controller
         return view('auth.404');
     }
 
+
     // -- one minutes validation token --
     // $token = $request->token;
     // $passwordReset = PasswordReset::where('token', $token)->first();
@@ -115,5 +116,30 @@ class AuthController extends Controller
     $passwordReset->delete();
 
     return redirect()->route('login')->with('success', 'Password has been reset successfully');
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('auth.change-password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+            'new_password_confirmation' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->with('old_password', 'The old password is incorrect.');
+        }
+
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Password changed successfully!');
     }
 }

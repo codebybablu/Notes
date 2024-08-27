@@ -18,6 +18,9 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
+        if (Auth::check()) {
+            return back();
+        }
         return view('auth.register');
     }
 
