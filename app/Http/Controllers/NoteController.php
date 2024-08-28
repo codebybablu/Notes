@@ -10,11 +10,23 @@ class NoteController extends Controller
     public function index(Request $request)
     {
         // $notes = Note::all();
-        $notes = auth()->user()->notes()->paginate(10);
-        if(!$notes) {
-            return view('notes.index', ['message' => 'No notes found']);
-        }
-        return view('notes.index', compact('notes'));
+        
+    $search = $request->input('search'); // retrieve the search query from the request
+    if($search) {
+        $notes = auth()->user()->notes()->where('title', 'like', "%$search%")->orWhere('content', 'like', "%$search%")->paginate(5);
+    } else {
+        $notes = auth()->user()->notes()->paginate(5);
+    }
+    if($notes->isEmpty()) {
+        return view('notes.index', ['message' => 'No notes found']);
+    }
+    return view('notes.index', compact('notes', 'search')); // pass the search query to the view
+
+        // $notes = auth()->user()->notes()->paginate(5);
+        // if(!$notes) {
+        //     return view('notes.index', ['message' => 'No notes found']);
+        // }
+        // return view('notes.index', compact('notes'));
     }
 
     public function create()

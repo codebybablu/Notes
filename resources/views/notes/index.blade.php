@@ -37,18 +37,18 @@
         @endif
 
         <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="{{ route('notes.create') }}" class="btn btn-primary">Create Notes</a>
             </div>
 
-            {{-- Serch Bar
+            {{-- Serch Bar --}}
              <div class="col-md-4">
                 <form class="form-inline" action="" method="GET">
                     <input type="search" class="form-control" name="search" placeholder="Search...">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
-            </div> --}}
-            <div class="col-md-6 text-right">
+            </div>
+            <div class="col-md-4 text-right">
                 Welcome, {{ Auth::user()->name }} 
                 <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
             </div>
