@@ -13,6 +13,7 @@ use App\Http\SendPasswordEmail;
 use App\Mail\VerifyEmail;
 use App\Mail\SendPasswordEmail as MailSendPasswordEmail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -67,10 +68,46 @@ class RegisterController extends Controller
     $user->is_active = 1; // Activate the user
     $user->save();
 
-    Auth::login($user);
+    // Auth::login($user);
 
     return redirect()->route('login')->with('success', 'Email verified successfully. You are now logged in.');
     }
+
+    // for testing purposes
+
+//     public function verifyEmail(Request $request)
+// {
+//     $token = $request->token;
+
+//     if (!$token) {
+//         Log::error('No verification token provided');
+//         return redirect()->route('login')->with('error', 'No verification token provided');
+//     }
+
+//     $user = User::where('verification_token', $token)->first();
+
+//     if (!$user) {
+//         Log::error('User not found with verification token: ' . $token);
+//         return redirect()->route('login')->with('error', 'Invalid verification token');
+//     }
+
+//     try {
+//         $user->email_verified_at = now();
+//         $user->verification_token = null;
+//         $user->is_active = 1; // Activate the user
+//         $user->save();
+
+//         Auth::login($user);
+
+//         Log::info('Email verified successfully for user: ' . $user->id);
+//         return redirect()->route('login')->with('success', 'Email verified successfully. You are now logged in.');
+//     } catch (\Exception $e) {
+//         Log::error('Error verifying email: ' . $e->getMessage());
+//         return redirect()->route('login')->with('error', 'Error verifying email');
+//     }
+// }
+
+    // end test
 
     // public function register(Request $request)
     // {

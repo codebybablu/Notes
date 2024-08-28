@@ -19,7 +19,7 @@
 </html>
 
 
-
+{{-- forget-password.blade.php --}}
 {{-- <!DOCTYPE html>
 <html>
 <head>

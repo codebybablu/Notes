@@ -10,7 +10,7 @@ class NoteController extends Controller
     public function index(Request $request)
     {
         // $notes = Note::all();
-        $notes = auth()->user()->notes;
+        $notes = auth()->user()->notes()->paginate(10);
         if(!$notes) {
             return view('notes.index', ['message' => 'No notes found']);
         }

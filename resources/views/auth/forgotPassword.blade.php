@@ -11,11 +11,11 @@
 
     <h3> Put Your Email ID  </h3>
 
-    @if($errors->any())
+    {{-- @if($errors->any())
         @foreach ($errors->all() as $error)
         <p style="color:red;">{{ $error }}</p>
         @endforeach
-    @endif
+    @endif --}}
 
     @if(Session::has('error'))
     <p style="color:red;">{{ Session::get('error') }}</p>
