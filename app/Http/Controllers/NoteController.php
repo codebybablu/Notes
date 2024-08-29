@@ -17,7 +17,7 @@ class NoteController extends Controller
     } else {
         $notes = auth()->user()->notes()->paginate(5);
     }
-    if($notes->isEmpty()) {
+    if(!$notes) {
         return view('notes.index', ['message' => 'No notes found']);
     }
     return view('notes.index', compact('notes', 'search')); // pass the search query to the view

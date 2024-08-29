@@ -82,7 +82,8 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $notes->links() }}
+        {{-- {{ $notes->links() }} --}}
+        {{ $notes->appends(Request::all()) }}  
     </div>
 
     
