@@ -61,11 +61,11 @@ class NoteController extends Controller
         $note = Note::find($id);
         return view('notes.edit', compact('note'));
     }
-
+ 
     public function update(Request $request, Note $note, $id)
     {
         $note = Note::find($id);
-
+         
         $request->validate([
             'title' => 'required',
             'content' => 'required',
